@@ -238,16 +238,45 @@ var Game = /*#__PURE__*/function (_React$Component) {
       board: board
     };
     _this.updateGame = _this.updateGame.bind(_assertThisInitialized(_this));
+    _this.restartGame = _this.restartGame.bind(_assertThisInitialized(_this));
     return _this;
   }
 
   _createClass(Game, [{
     key: "render",
     value: function render() {
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_board__WEBPACK_IMPORTED_MODULE_1__["default"], {
+      var something = '';
+
+      if (this.state.board.lost()) {
+        something = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "modal-screen"
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "modal-content"
+        }, "You Lost!!!", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+          onClick: this.restartGame
+        }, "play again")));
+      } else if (this.state.board.won()) {
+        something = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "modal-screen"
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "modal-content"
+        }, "You Won!!!", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+          onClick: this.restartGame
+        }, "play again")));
+      }
+
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, something, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_board__WEBPACK_IMPORTED_MODULE_1__["default"], {
         board: this.state.board,
         updateGame: this.updateGame
       }));
+    }
+  }, {
+    key: "restartGame",
+    value: function restartGame() {
+      var board = new _minesweeper__WEBPACK_IMPORTED_MODULE_2__["Board"](9, 10);
+      this.setState({
+        board: board
+      });
     }
   }, {
     key: "updateGame",
